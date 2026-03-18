@@ -135,6 +135,11 @@ namespace Oxide.Plugins
             if (!stash.ShortPrefabName.Contains("small_stash"))
                 return;
 
+            // Only auto-remove stashes that were not player-owned.
+            // Player-placed stashes have an owner and should never be removed by this plugin.
+            if (stash.OwnerID != 0)
+                return;
+
             if (stash.inventory.IsEmpty())
                 stash.Kill();
         }
